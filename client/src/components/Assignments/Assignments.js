@@ -13,7 +13,7 @@ const Assignments = () => {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
     useEffect(() => {
-        axios.post('http://localhost:7000/assignments/fetchall')
+        axios.post('https://letshpc2.herokuapp.com/assignments/fetchall')
             .then(res => setAssignments(res.data["allAssignments"]))
             .catch(err => console.error(err));
     }, []);
