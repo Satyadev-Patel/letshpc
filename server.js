@@ -9,6 +9,8 @@ const MongoClient = require('mongodb').MongoClient;
 const dotnev = require("dotenv");
 const bodyParser = require("body-parser");
 
+const path = require("path");
+
 dotnev.config({ path: "./config/config.env" });
 
 app.use(cors());
