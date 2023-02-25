@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.js": "/static/js/main.e010ccd8.js",
+    "static/js/787.5785d359.chunk.js": "/static/js/787.5785d359.chunk.js",
+    "static/media/undraw_educator_re_ju47.svg": "/static/media/undraw_educator_re_ju47.74e8afef99fb35ecf37aa8b070de7f33.svg",
+    "static/media/undraw_data_input_fxv2.svg": "/static/media/undraw_data_input_fxv2.2bf78c7022bf2f50564c6bba41761511.svg",
+    "index.html": "/index.html",
+    "main.e010ccd8.js.map": "/static/js/main.e010ccd8.js.map",
+    "787.5785d359.chunk.js.map": "/static/js/787.5785d359.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.e010ccd8.js"
+  ]
+}
