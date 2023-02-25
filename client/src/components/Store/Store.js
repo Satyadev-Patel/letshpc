@@ -6,6 +6,8 @@ import { TextField, Button, Grid, Typography, Slide } from '@mui/material';
 import { useStyles } from "./styles";
 import axios from 'axios';
 
+const URL = process.env.REACT_URL
+
 const Store = () => {
 
   const classes = useStyles();
@@ -37,7 +39,7 @@ const Store = () => {
       data.forEach(async (row) => {
         row["GROUP_NO"] = grpNumber;
       });
-      axios.post('http://localhost:7000/data/store', data)
+      axios.post(`${URL}/data/store`, data)
         .then(window.alert("Data Stored"))
         .catch(err => console.error(err));
     }

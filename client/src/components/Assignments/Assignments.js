@@ -4,7 +4,7 @@ import { InputLabel, MenuItem, Box, FormControl, Button, Grid, Card, Typography,
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import axios from 'axios';
 import ProblemCard from './ProblemCard';
-
+const URL = process.env.REACT_URL;
 const Assignments = () => {
     const classes = useStyles();
     const [assignments, setAssignments] = useState([])
@@ -13,7 +13,7 @@ const Assignments = () => {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
     useEffect(() => {
-        axios.post('https://letshpc2.herokuapp.com/assignments/fetchall')
+        axios.post(`${URL}/assignments/fetchall`)
             .then(res => setAssignments(res.data["allAssignments"]))
             .catch(err => console.error(err));
     }, []);
@@ -31,7 +31,7 @@ const Assignments = () => {
         }
         else {
             console.log(taskName);
-            const response = await axios.post('http://localhost:7000/assignments/fetchone', { "ASS_NAME": taskName })
+            const response = await axios.post(`${URL}/assignments/fetchone`, { "ASS_NAME": taskName })
             setProb(response.data["assignment"]["problem_statement"]);
             setInput(response.data["assignment"]["problem_input"]);
             setOutput(response.data["assignment"]["expected_output"]);
