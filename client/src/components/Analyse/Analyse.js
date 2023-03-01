@@ -5,6 +5,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import axios from 'axios';
 import { common } from '@mui/material/colors';
 
+const URL = process.env.REACT_APP_URL;
 const Analyse = () => {
     const classes = useStyles();
     const [probName, setProbName] = useState("");
@@ -16,7 +17,7 @@ const Analyse = () => {
     };
 
     useEffect(() => {
-        axios.post('http://localhost:7000/data/allproblems')
+        axios.post(`${URL}/data/allproblems`)
             .then(res => setAllProb(res.data.data))
             .catch(err => console.error(err));
     }, []);
@@ -27,7 +28,7 @@ const Analyse = () => {
         }
         else {
             console.log(probName);
-            const response = await axios.post('http://localhost:7000/data/analyse', { "PROB_NAME": probName })
+            const response = await axios.post(`${URL}/data/analyse`, { "PROB_NAME": probName })
             console.log(response.data);
             setPerfResults(response.data)
         }
