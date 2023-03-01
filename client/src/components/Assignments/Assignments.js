@@ -4,7 +4,7 @@ import { InputLabel, MenuItem, Box, FormControl, Button, Grid, Card, Typography,
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import axios from 'axios';
 import ProblemCard from './ProblemCard';
-const URL = process.env.REACT_URL;
+const URL = process.env.REACT_APP_URL;
 const Assignments = () => {
     const classes = useStyles();
     const [assignments, setAssignments] = useState([])
@@ -13,6 +13,7 @@ const Assignments = () => {
     const [input, setInput] = useState("");
     const [output, setOutput] = useState("");
     useEffect(() => {
+        console.log(URL);
         axios.post(`${URL}/assignments/fetchall`)
             .then(res => setAssignments(res.data["allAssignments"]))
             .catch(err => console.error(err));

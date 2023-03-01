@@ -6,7 +6,7 @@ import { TextField, Button, Grid, Typography, Slide } from '@mui/material';
 import { useStyles } from "./styles";
 import axios from 'axios';
 
-const URL = process.env.REACT_URL
+const URL = process.env.REACT_APP_URL
 
 const Store = () => {
 
