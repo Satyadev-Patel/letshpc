@@ -27,7 +27,7 @@ const Analyse = () => {
         }
         else {
             console.log(probName);
-            const response = await axios.post('http://localhost:5000/data/analyse', { "PROB_NAME": probName })
+            const response = await axios.post('http://localhost:7000/data/analyse', { "PROB_NAME": probName })
             console.log(response.data);
             setPerfResults(response.data)
         }
