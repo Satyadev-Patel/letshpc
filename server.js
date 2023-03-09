@@ -65,6 +65,39 @@ app.post("/assignments/fetchall/", (req, res, next) => {
     }
 })
 
+app.post("/data/analyse", (req,res,next) => {
+    try {
+        const data = req.body;
+        const size = data.size;
+        var tempSize = parseInt(size)
+        tempSize = Math.pow(2,tempSize);
+        tempSize = tempSize.toString();
+        const probName = data.probName
+        console.log(tempSize);
+        serialData.find({PROB_NAME: probName, PROB_SIZE: tempSize, MACHINE: "CLUSTER"}).then((row) => {
+            // const groups = [];
+            // const time = [];
+            const combined = [];
+            row.forEach(element => {
+                combined.push({ group: "Group " + element.GROUP_NO,time: parseFloat(element.TOTAL_TIME)});
+            });
+            combined.sort((a,b) => a.time - b.time);
+            const obj = {
+                message: "success",
+                combined: combined
+            }
+            res.send(obj);
+            next();
+        })
+    } catch (err) {
+        res.status(err.status || 500);
+        res.json({
+            message: err.message,
+            error: err
+        });
+    }
+})
+
 app.post("/assignments/fetchone/", (req, res, next) => {
     try {
         const data = req.body;
