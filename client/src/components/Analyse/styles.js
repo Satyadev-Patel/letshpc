@@ -51,10 +51,8 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   formBtn: {
-    fontFamily: "Poppins",
-    marginBottom: "20px",
-    marginTop: "100px",
-    marginLeft: "20px",
-    color: "black"
+    fontFamily: "Poppins !important",
+    marginLeft: "20px !important", 
+    fontSize: "1.5rem !important"
   },
 }));
