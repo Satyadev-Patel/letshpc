@@ -4,13 +4,18 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { useStyles } from "./styles";
 
-const Home = () => {
+const Home = (props) => {
     const classes = useStyles();
     const [checked, setChecked] = useState(true);
+
+    const Logout = () => {
+        window.sessionStorage.clear();
+        props.Authenticate();
+    };
     return (
         <div className={classes.root}>
             <div>
-                <img style={{width:"500px", height: "500px", margin: "50px"}} src={SVG} alt="Your SVG" />
+                <img style={{ width: "500px", height: "500px", margin: "50px" }} src={SVG} alt="Your SVG" />
             </div>
             <Slide
                 direction="bottom"
@@ -46,6 +51,29 @@ const Home = () => {
                             Assignments
                         </Button>
                     </Grid>
+                    {
+                        props.Auth === "Yes" ? (
+                            <Grid item xs={12}>
+                                <Button
+                                    style={{ fontFamily: "Poppins", padding: "20px", fontSize: "2rem", minWidth: "400px", }}
+                                    className={classes.formBtn}
+                                    onClick={Logout}
+                                    variant="contained">
+                                    Logout
+                                </Button>
+                            </Grid>
+                        ) : (
+                            <Grid item xs={12}>
+                                <Button
+                                    style={{ fontFamily: "Poppins", padding: "20px", fontSize: "2rem", minWidth: "400px", }}
+                                    className={classes.formBtn}
+                                    href="/login"
+                                    variant="contained">
+                                    Login
+                                </Button>
+                            </Grid>
+                        )
+                    }
                 </Grid>
             </Slide>
         </div>

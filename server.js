@@ -8,6 +8,7 @@ const bodyParser = require("body-parser");
 const connectDB = require("./config/db.js");
 const serialData = require("./Models/SerialData.js")
 const assignments = require("./Models/Assignments.js")
+const passport = require("passport");
 
 const path = require("path");
 
@@ -29,6 +30,15 @@ app.use((req, res, next) => {
     );
     next();
 });
+const session = require('express-session');
+app.use(session({
+    secret: "HELLO",
+    resave: true,
+    saveUninitialized: true
+}));
+require("./config/passport")(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -117,7 +127,7 @@ app.post("/data/store/", (req, res, next) => {
     }
 })
 
-
+app.use("/users", require("./routes/users"));
 
 
 
