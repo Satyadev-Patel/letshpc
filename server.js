@@ -117,7 +117,7 @@ app.post("/data/store/", (req, res, next) => {
     }
 })
 
-
+app.use("/users", require("./routes/user"));
 
 
 
