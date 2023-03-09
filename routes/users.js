@@ -10,6 +10,7 @@ const dotnev = require("dotenv");
 dotnev.config({ path: "./config/config.env" });
 
 router.post("/login", passport.authenticate("local"), (req, res, next) => {
+    console.log("HELLO")
     const obj = {
         msg: "success",
         user: req.user,
@@ -24,20 +25,17 @@ router.post("/register", (req, res, next) => {
     }
     try {
         const data = req.body;
-        const totalSize = User.count();
-        if(totalSize === 1){
-            res.send("Only 1 admin is allowed!");
-        }
-        User.findOne({ email: data["email"] }).then((user) => {
-            if (user) {
-                res.send("Email already registred!!");
-            } else {
+        User.count({}).then((totalSize) => {
+            if (totalSize === 1) {
+                res.send("Only 1 admin allowed!");
+            }
+            else {
                 bcrypt.genSalt(10, (err, salt) => {
                     bcrypt.hash(data["password"], salt, (err, hash) => {
                         if (err) throw err;
                         data["password"] = hash;
                         User.create(data).then(() => {
-                            res.send(201);
+                            res.sendStatus(201);
                         });
                     });
                 });

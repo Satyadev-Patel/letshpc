@@ -4,8 +4,8 @@ const timestamp = require("mongoose-timestamp");
 // Chat Database
 
 const Users = new mongoose.Schema({
-    username: String,
-    pass: String,
+    email: String,
+    password: String,
 }, { collection: 'users' });
 
 Users.plugin(timestamp);
