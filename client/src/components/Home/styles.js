@@ -10,7 +10,7 @@ export const useStyles = makeStyles((theme) => ({
     fontFamily: "Poppins",
     minHeight: "100vh",
     backgroundSize: "cover",
-    backgroundColor: "#37FDFC",
+    backgroundColor: "black",
     overflowX: "hidden",
   },
   grid: {
@@ -36,7 +36,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   title: {
     marginLeft: "100px",
-    color: "black",
+    color: "white",
     fontSize: "4rem",
   },
 }));

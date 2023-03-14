@@ -19,7 +19,7 @@ const Copyright = () => {
       color="textSecondary"
       align="center"
     >
-      {"Copyright © "}Nanosoft Teams {new Date().getFullYear()}
+      {"Copyright © "}LetsHPC {new Date().getFullYear()}
       {"."}
     </Typography>
   );
@@ -122,17 +122,6 @@ const Login = (props) => {
             >
               Sign In
             </Button>
-            <Grid container>
-              <Grid item>
-                <Link
-                  style={{ color: "#fff", fontFamily: "Poppins" }}
-                  href="/register"
-                  variant="body2"
-                >
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
             <Box mt={5} style={{margin:"20px"}}>
               <Copyright />
             </Box>

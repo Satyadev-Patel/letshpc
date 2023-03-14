@@ -65,23 +65,23 @@ app.post("/assignments/fetchall/", (req, res, next) => {
     }
 })
 
-app.post("/data/analyse", (req,res,next) => {
+app.post("/data/analyse", (req, res, next) => {
     try {
         const data = req.body;
         const size = data.size;
         var tempSize = parseInt(size)
-        tempSize = Math.pow(2,tempSize);
+        tempSize = Math.pow(2, tempSize);
         tempSize = tempSize.toString();
         const probName = data.probName
         console.log(tempSize);
-        serialData.find({PROB_NAME: probName, PROB_SIZE: tempSize, MACHINE: "CLUSTER"}).then((row) => {
+        const combined = [];
+        serialData.find({ PROB_NAME: probName, PROB_SIZE: tempSize }).then((row) => {
             // const groups = [];
             // const time = [];
-            const combined = [];
             row.forEach(element => {
-                combined.push({ group: "Group " + element.GROUP_NO,time: parseFloat(element.TOTAL_TIME)});
+                combined.push({ group: element.MACHINE + " Group " + element.GROUP_NO, time: parseFloat(element.TOTAL_TIME) });
             });
-            combined.sort((a,b) => a.time - b.time);
+            combined.sort((a, b) => a.time - b.time);
             const obj = {
                 message: "success",
                 combined: combined
@@ -139,7 +139,7 @@ app.post("/data/allproblems/", (req, res, next) => {
         res.json({
             message: err.message,
             error: err
-        }); 
+        });
     }
 })
 
@@ -150,7 +150,7 @@ app.post("/data/store/", (req, res, next) => {
         const data = req.body;
         // Sending all the chats of requested meeting
         serialData.insertMany(data);
-        res.send({msg:"DONE"});
+        res.send({ msg: "DONE" });
     } catch (err) {
         res.status(err.status || 500);
         res.json({
@@ -166,11 +166,11 @@ app.use("/users", require("./routes/users"));
 
 const PORT = process.env.PORT || 7000;
 
-if(process.env.NODE_ENV == "production"){
+if (process.env.NODE_ENV == "production") {
     app.use(express.static("client/build"))
     app.get("*", (req, res) => {
         res.sendFile(path.join(__dirname, "client/build/index.html"));
-      });
+    });
 }
 
 server.listen(PORT, () => console.log(`server is running on port ${PORT}`));
