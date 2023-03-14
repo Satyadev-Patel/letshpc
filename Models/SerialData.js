@@ -10,6 +10,9 @@ const SerialData = new mongoose.Schema({
     PROB_NAME: String,
     PROB_SIZE: String,
     TOTAL_TIME: String,
+    PERF: String,
+    MEAN: String,
+    STD: String,
 }, { collection: 'serialData' });
 
 SerialData.plugin(timestamp);
