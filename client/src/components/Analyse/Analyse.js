@@ -12,14 +12,18 @@ const Analyse = () => {
     const [probName, setProbName] = useState("");
     const [allProb, setAllProb] = useState([]);
     const [size, setSize] = useState();
-    const [groups, setGroups] = useState([]);
+    const [groupsTime, setGroupsTime] = useState([]);
     const [time, setTime] = useState([]);
+    const [groupsMean, setGroupsMean] = useState([]);
+    const [mean, setMean] = useState([]);
+    const [groupsStd, setGroupsStd] = useState([]);
+    const [std, setStd] = useState([]);
     const allSize = [...Array(27).keys()]
     const handleChange = (e) => {
         setProbName(e.target.value);
     };
 
-    var state = {
+    var state1 = {
 
         series: [{
             data: time
@@ -36,14 +40,17 @@ const Analyse = () => {
                 }
             },
             dataLabels: {
-                enabled: true
+                enabled: true,
+                style: {
+                    colors: ["#000"]
+                }
             },
-            title:{
+            title: {
                 text: "PERFORMANCE CHART"
             },
             xaxis: {
-                categories: groups,
-                title:{
+                categories: groupsTime,
+                title: {
                     text: "Runtime(s)",
                     style: {
                         fontSize: '20px',
@@ -53,7 +60,7 @@ const Analyse = () => {
                 }
             },
             yaxis: {
-                title:{
+                title: {
                     text: "Group Number",
                     style: {
                         fontSize: '20px',
@@ -63,7 +70,111 @@ const Analyse = () => {
                 },
                 labels: {
                     maxWidth: 250
-                 }
+                }
+            }
+        },
+    };
+
+    var state2 = {
+
+        series: [{
+            data: mean
+        }],
+        options: {
+            chart: {
+                type: 'bar',
+                height: 350
+            },
+            plotOptions: {
+                bar: {
+                    borderRadius: 4,
+                    horizontal: true,
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                style: {
+                    colors: ["#000"]
+                }
+            },
+            title: {
+                text: "PERFORMANCE CHART"
+            },
+            xaxis: {
+                categories: groupsMean,
+                title: {
+                    text: "Variance in Performance",
+                    style: {
+                        fontSize: '20px',
+                        fontFamily: 'Helvetica, Arial, sans-serif',
+                        cssClass: 'apexcharts-yaxis-title',
+                    },
+                }
+            },
+            yaxis: {
+                title: {
+                    text: "Group Number",
+                    style: {
+                        fontSize: '20px',
+                        fontFamily: 'Helvetica, Arial, sans-serif',
+                        cssClass: 'apexcharts-yaxis-title',
+                    },
+                },
+                labels: {
+                    maxWidth: 250
+                }
+            }
+        },
+    };
+
+    var state3 = {
+
+        series: [{
+            data: std
+        }],
+        options: {
+            chart: {
+                type: 'bar',
+                height: 350
+            },
+            plotOptions: {
+                bar: {
+                    borderRadius: 4,
+                    horizontal: true,
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                style: {
+                    colors: ["#000"]
+                }
+            },
+            title: {
+                text: "PERFORMANCE CHART"
+            },
+            xaxis: {
+                categories: groupsStd,
+                title: {
+                    text: "Combined Metric",
+                    style: {
+                        fontSize: '20px',
+                        fontFamily: 'Helvetica, Arial, sans-serif',
+                        cssClass: 'apexcharts-yaxis-title',
+                    },
+                }
+            },
+            yaxis: {
+                title: {
+                    text: "Group Number",
+                    style: {
+                        fontSize: '20px',
+                        fontFamily: 'Helvetica, Arial, sans-serif',
+                        cssClass: 'apexcharts-yaxis-title',
+                    },
+                },
+                labels: {
+                    maxWidth: 250
+                }
             }
         },
     };
@@ -86,13 +197,31 @@ const Analyse = () => {
             console.log(response.data);
             var tempGroup = []
             var tempTime = []
-            response.data.combined.forEach(element => {
+            response.data.combinedTime.forEach(element => {
                 tempGroup.push(element.group)
                 tempTime.push(element.time)
             });
-            setGroups(tempGroup);
+            setGroupsTime(tempGroup);
             setTime(tempTime);
-            console.log(state);
+
+            tempGroup = []
+            tempTime = []
+            response.data.combinedStd.forEach(element => {
+                tempGroup.push(element.group)
+                tempTime.push(element.std)
+            });
+            setGroupsStd(tempGroup);
+            setStd(tempTime);
+
+            tempGroup = []
+            tempTime = []
+            response.data.combinedMean.forEach(element => {
+                tempGroup.push(element.group)
+                tempTime.push(element.mean)
+            });
+            setGroupsMean(tempGroup);
+            setMean(tempTime);
+            console.log(state2);
         }
     }
 
@@ -156,8 +285,12 @@ const Analyse = () => {
                         </Button>
                     </Box>
                 </Grid>
-                <ReactApexChart options={state.options}
-                    series={state.series} type="bar" height={1500} width={1200} />
+                <ReactApexChart options={state1.options}
+                    series={state1.series} type="bar" height={500} width={1200} />
+                <ReactApexChart options={state2.options}
+                    series={state2.series} type="bar" height={500} width={1200} />
+                <ReactApexChart options={state3.options}
+                    series={state3.series} type="bar" height={500} width={1200} />
             </Grid>
         </div>
     )

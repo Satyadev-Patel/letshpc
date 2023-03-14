@@ -74,17 +74,29 @@ app.post("/data/analyse", (req, res, next) => {
         tempSize = tempSize.toString();
         const probName = data.probName
         console.log(tempSize);
-        const combined = [];
-        serialData.find({ PROB_NAME: probName, PROB_SIZE: tempSize }).then((row) => {
+        const combinedTime = [];
+        const combinedMean = [];
+        const combinedStd = [];
+        serialData.find({ PROB_NAME: probName, PROB_SIZE: tempSize, MACHINE: "CLUSTER" }).then((row) => {
             // const groups = [];
             // const time = [];
             row.forEach(element => {
-                combined.push({ group: element.MACHINE + " Group " + element.GROUP_NO, time: parseFloat(element.TOTAL_TIME) });
+                combinedTime.push({ group: element.MACHINE + " Group " + element.GROUP_NO, time: parseFloat(element.TOTAL_TIME) });
             });
-            combined.sort((a, b) => a.time - b.time);
+            row.forEach(element => {
+                combinedMean.push({ group: element.MACHINE + " Group " + element.GROUP_NO, mean: 0.8*parseFloat(element.MEAN) + 0.2*parseFloat(element.STD) });
+            });
+            row.forEach(element => {
+                combinedStd.push({ group: element.MACHINE + " Group " + element.GROUP_NO, std: parseFloat(element.STD) });
+            });
+            combinedTime.sort((a, b) => a.time - b.time);
+            combinedMean.sort((a, b) => a.mean - b.mean);
+            combinedStd.sort((a, b) => a.std - b.std);
             const obj = {
                 message: "success",
-                combined: combined
+                combinedTime: combinedTime,
+                combinedMean: combinedMean,
+                combinedStd: combinedStd
             }
             res.send(obj);
             next();
