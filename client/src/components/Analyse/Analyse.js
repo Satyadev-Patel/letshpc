@@ -60,7 +60,10 @@ const Analyse = () => {
                         fontFamily: 'Helvetica, Arial, sans-serif',
                         cssClass: 'apexcharts-yaxis-title',
                     },
-                }
+                },
+                labels: {
+                    maxWidth: 250
+                 }
             }
         },
     };
@@ -154,7 +157,7 @@ const Analyse = () => {
                     </Box>
                 </Grid>
                 <ReactApexChart options={state.options}
-                    series={state.series} type="bar" height={500} width={1000} />
+                    series={state.series} type="bar" height={1500} width={1200} />
             </Grid>
         </div>
     )
