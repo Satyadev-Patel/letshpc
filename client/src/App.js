@@ -31,8 +31,14 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Home Auth={Auth} Authenticate={Authenticate} />} />
-          <Route exact path="/collect" element={<Store Auth={Auth} Authenticate={Authenticate} />} />
-          <Route exact path="/analyse" element={<Analyse Auth={Auth} Authenticate={Authenticate} />} />
+          <Route exact path="/collect" element={
+            Auth === "No" ?
+              <Store Auth={Auth} Authenticate={Authenticate} /> :
+              <Navigate to="/login" replace={true} />} />
+          <Route exact path="/analyse" element={
+            Auth === "Yes" ?
+              <Analyse Auth={Auth} Authenticate={Authenticate} /> :
+              <Navigate to="/login" replace={true} />} />
           <Route exact path="/plot" element={<Plotter Auth={Auth} Authenticate={Authenticate} />} />
           <Route exact path="/ssh" element={<Ssh Auth={Auth} Authenticate={Authenticate} />} />
           <Route exact path="/datapage" element={<DataPage Auth={Auth} Authenticate={Authenticate} />} />

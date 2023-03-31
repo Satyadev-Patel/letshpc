@@ -286,11 +286,11 @@ const Analyse = () => {
                     </Box>
                 </Grid>
                 <ReactApexChart options={state1.options}
-                    series={state1.series} type="bar" height={500} width={1200} />
+                    series={state1.series} type="bar" height={1000} width={1200} />
                 <ReactApexChart options={state2.options}
-                    series={state2.series} type="bar" height={500} width={1200} />
+                    series={state2.series} type="bar" height={1000} width={1200} />
                 <ReactApexChart options={state3.options}
-                    series={state3.series} type="bar" height={500} width={1200} />
+                    series={state3.series} type="bar" height={1000} width={1200} />
             </Grid>
         </div>
     )
