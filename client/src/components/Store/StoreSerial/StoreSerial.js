@@ -3,18 +3,49 @@ import Papa from 'papaparse';
 import SVG from "./undraw_data_input_fxv2.svg";
 import { useState, useEffect } from 'react';
 import { TextField, Button, Grid, Typography, Slide } from '@mui/material';
-import { useStyles } from "./StoreParallel/styles";
+import { useStyles } from "./styles";
 import axios from 'axios';
-import { Navigate } from 'react-router-dom';
 
 const URL = process.env.REACT_APP_URL
 
-const Store = () => {
+const StoreSerial = () => {
 
   const classes = useStyles();
-  
+
+  const [data, setData] = useState([]);
+  const [grpNumber, setGrpNumber] = useState(0);
   const [checked, setChecked] = useState();
-  
+
+  useEffect(() => {
+    setChecked(true);
+  }, []);
+
+  const handleUpload = (event) => {
+    const file = event.target.files[0];
+    Papa.parse(file, {
+      header: true,
+      complete: (results) => {
+        setData(results.data);
+      },
+    });
+  };
+
+  // Function to store the data in the database
+  const storeData = () => {
+    if (grpNumber === 0) {
+      window.alert("Please Enter Group Number");
+    }
+    else {
+      data.forEach(async (row) => {
+        row["GROUP_NO"] = grpNumber;
+      });
+      axios.post(`${URL}/data/store`, data)
+        .then(window.alert("Data Stored"))
+        .catch(err => console.error(err));
+    }
+  };
+
+
   return (
     <div className={classes.root}>
       <div>
@@ -36,22 +67,27 @@ const Store = () => {
         </Grid>
       </Grid>
       <Grid container component="main" className={classes.grid}>
-      <Grid className={classes.gridItem} item xs={12}>
-          <Button
-            style={{ fontFamily: "Poppins", padding: "20px", fontSize: "2rem" }}
-            className={classes.formBtn}
-            href="/collectSerial"
-            variant="contained">
-            Serial Data
-          </Button>
+        <Grid className={classes.gridItem} item xs={12}>
+          <TextField
+            className={classes.txtfield}
+            id="outlined-basic"
+            label="Group Number"
+            onChange={(e) => setGrpNumber(e.target.value)}
+            variant="outlined" />
+        </Grid>
+        <Grid className={classes.gridItem} item xs={12}>
+          <TextField
+            className={classes.txtfield}
+            onChange={handleUpload}
+            inputProps={{ type: 'file' }} />
         </Grid>
         <Grid className={classes.gridItem} item xs={12}>
           <Button
             style={{ fontFamily: "Poppins", padding: "20px", fontSize: "2rem" }}
             className={classes.formBtn}
-            href="/collectParallel"
+            onClick={storeData}
             variant="contained">
-            Parallel Data
+            Store Data
           </Button>
         </Grid>
       </Grid>
@@ -59,4 +95,4 @@ const Store = () => {
   )
 }
 
-export default Store
+export default StoreSerial

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import StoreSerial from './components/Store/StoreSerial/StoreSerial';
 import Store from './components/Store/Store';
+import StoreParallel from './components/Store/StoreParallel/StoreParallel';
 import { CssBaseline } from "@material-ui/core";
 import {
   BrowserRouter as Router,
@@ -32,8 +34,16 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home Auth={Auth} Authenticate={Authenticate} />} />
           <Route exact path="/collect" element={
-            Auth === "No" ?
+            Auth === "Yes" ?
               <Store Auth={Auth} Authenticate={Authenticate} /> :
+              <Navigate to="/login" replace={true} />} />
+          <Route exact path="/collectSerial" element={
+            Auth === "Yes" ?
+              <StoreSerial Auth={Auth} Authenticate={Authenticate} /> :
+              <Navigate to="/login" replace={true} />} />
+          <Route exact path="/collectParallel" element={
+            Auth === "Yes" ?
+              <StoreParallel Auth={Auth} Authenticate={Authenticate} /> :
               <Navigate to="/login" replace={true} />} />
           <Route exact path="/analyse" element={
             Auth === "Yes" ?
