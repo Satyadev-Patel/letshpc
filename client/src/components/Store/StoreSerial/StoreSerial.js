@@ -39,7 +39,7 @@ const StoreSerial = () => {
       data.forEach(async (row) => {
         row["GROUP_NO"] = grpNumber;
       });
-      axios.post(`${URL}/data/store`, data)
+      axios.post(`${URL}/data/storeserial`, data)
         .then(window.alert("Data Stored"))
         .catch(err => console.error(err));
     }
@@ -61,7 +61,7 @@ const StoreSerial = () => {
             unmountOnExit
           >
             <Typography variant="h1" style={{ fontFamily: "Poppins" }}>
-              Assignment Submission
+              Serial Data Submission
             </Typography>
           </Slide>
         </Grid>

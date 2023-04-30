@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import StoreSerial from './components/Store/StoreSerial/StoreSerial';
 import Store from './components/Store/Store';
+import AnalyseParallel from './components/Analyse/AnalyseParallel/AnalyseParallel';
+import AnalyseSerial from './components/Analyse/AnalyseSerial/AnalyseSerial';
 import StoreParallel from './components/Store/StoreParallel/StoreParallel';
 import { CssBaseline } from "@material-ui/core";
 import {
@@ -48,6 +50,14 @@ function App() {
           <Route exact path="/analyse" element={
             Auth === "Yes" ?
               <Analyse Auth={Auth} Authenticate={Authenticate} /> :
+              <Navigate to="/login" replace={true} />} />
+          <Route exact path="/analyseSerial" element={
+            Auth === "Yes" ?
+              <AnalyseSerial Auth={Auth} Authenticate={Authenticate} /> :
+              <Navigate to="/login" replace={true} />} />
+          <Route exact path="/analyseParallel" element={
+            Auth === "Yes" ?
+              <AnalyseParallel Auth={Auth} Authenticate={Authenticate} /> :
               <Navigate to="/login" replace={true} />} />
           <Route exact path="/plot" element={<Plotter Auth={Auth} Authenticate={Authenticate} />} />
           <Route exact path="/ssh" element={<Ssh Auth={Auth} Authenticate={Authenticate} />} />
